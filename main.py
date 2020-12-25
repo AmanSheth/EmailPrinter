@@ -71,6 +71,6 @@ while True:
         attachments = getAttachments(d)
 
         for attachment in attachments:
-            os.startfile(attachment.name, "print")
+            printFile(attachment.name)
         id_list.append(d)
 
