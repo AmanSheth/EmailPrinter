@@ -49,12 +49,6 @@ imap.login(username, password)
 imap.select("Inbox", readonly=True)
 result, ids = imap.search(None, "ALL")
 id_list = ids[0].split()
-attachments = getAttachments(id_list[len(id_list) - 1])
-
-for attachment in attachments:
-    os.startfile(attachment.name, "print")
-
-
 
 while True:
     imap.select("Inbox", readonly=True)
