@@ -1,7 +1,11 @@
 import email
 import imaplib
 import time
-import os
+import os, sys
+import win32
+import win32print
+import win32api
+
 def Diff(li1, li2):
     li_dif = [i for i in li1 + li2 if i not in li1 or i not in li2]
     return li_dif
@@ -33,6 +37,8 @@ def getAttachments(id):
     else:
         return None
 
+def printFile(fileName):
+    win32api.ShellExecute(0, "print", fileName, CurrentPrinter, ".", 0)
 
 detach_dir = '.'
 if 'attachments' not in os.listdir(detach_dir):
@@ -46,10 +52,17 @@ password = "Sheths@69FD"
 imap = imaplib.IMAP4_SSL("imap.gmail.com", 993)
 imap.login(username, password)
 
+#setup printer stuff
+CurrentPrinter = win32print.GetDefaultPrinter()
+
+
 imap.select("Inbox", readonly=True)
 result, ids = imap.search(None, "ALL")
 id_list = ids[0].split()
 
+attachments = getAttachments(id_list[len(id_list) - 4])
+for att in attachments:
+    printFile(att.name)
 while True:
     imap.select("Inbox", readonly=True)
     result, ids2 = imap.search(None, "ALL")
@@ -58,6 +71,6 @@ while True:
         attachments = getAttachments(d)
 
         for attachment in attachments:
-            os.startfile(attachment, "print")
-
+            os.startfile(attachment.name, "print")
         id_list.append(d)
+
