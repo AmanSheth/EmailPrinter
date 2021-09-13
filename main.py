@@ -44,9 +44,10 @@ detach_dir = '.'
 if 'attachments' not in os.listdir(detach_dir):
     os.mkdir('attachments')
 
-#credentials
-username = "shethprinter@gmail.com"
-password = "Sheths@69FD"
+#credentials 
+#CHANGE THESE TO YOUR CREDENTIALS
+username = ""
+password = ""
 
 #setup connection to email
 imap = imaplib.IMAP4_SSL("imap.gmail.com", 993)
